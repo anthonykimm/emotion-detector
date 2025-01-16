@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import ApproachabilityFeedback from "./components/Approachability";
 
 const Webcam = dynamic(() => import('react-webcam'), {
     ssr: false,
@@ -88,7 +89,7 @@ export default function Home() {
         let intervalId;
 
         if (isActive && isCameraReady) {
-            intervalId = setInterval(processFrame, 1000);
+            intervalId = setInterval(processFrame, 500);
         }
 
         return () => {
@@ -147,11 +148,6 @@ export default function Home() {
                                 className="w-full rounded"
                             />
                         )}
-                        {isProcessing && (
-                            <div className="absolute top-4 right-4">
-                                loading..
-                            </div>
-                        )}
                     </div>
 
                     {isCameraReady && (
@@ -187,6 +183,8 @@ export default function Home() {
                                     </span>
                                 </div>
                             </div>
+
+                            <ApproachabilityFeedback emotions={emotionResults.emotions} />
                         </div>
                     ) : (
                         <div className="p-4 bg-gray-100 rounded text-center">
