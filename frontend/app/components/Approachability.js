@@ -1,7 +1,4 @@
-/**
- * Given the intensity of the emotions, provides corresponding tips and feedback.
- *
- */
+// Given the intensity of the emotions, provides corresponding tips and feedback.
 const getFeedback = (emotions) => {
     if (!emotions) return null;
 

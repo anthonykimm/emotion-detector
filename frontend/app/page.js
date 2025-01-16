@@ -40,12 +40,14 @@ export default function Home() {
         requestCameraPermission();
     }, []);
 
+    // Handles successful webcam connection
     const handleUserMedia = useCallback((stream) => {
         setHasWebcamPermission(true);
         setIsCameraReady(true);
         setError(null);
     }, []);
 
+    // Handles error in webcam connection
     const handleUserMediaError = useCallback((err) => {
         setHasWebcamPermission(false);
         setIsCameraReady(false);
@@ -53,10 +55,13 @@ export default function Home() {
         console.error('Webcam error:', err);
     }, []);
 
+    // Sends a frame (image) to the backend for emotional evaluation
     const processFrame = useCallback(async () => {
         if (!webcamRef.current || !isActive || isProcessing || !isCameraReady) return;
 
         try {
+            // Setting this boolean is important to prevent race conditions, ensures consistent state.
+            // Would be an issue if process rate is much much quicker (not an issue with default 500ms)
             setIsProcessing(true);
             const imageSrc = webcamRef.current.getScreenshot();
 
@@ -81,10 +86,12 @@ export default function Home() {
             setError(err.message);
             setIsActive(false);
         } finally {
+            // Now this process is finished, the next process may make the call to the backend
             setIsProcessing(false);
         }
     }, [isActive, isProcessing, isCameraReady]);
 
+    // ensures a frame is processed every 500ms
     useEffect(() => {
         let intervalId;
 
@@ -99,6 +106,7 @@ export default function Home() {
         };
     }, [isActive, processFrame, isCameraReady]);
 
+    // For the 'start/end detection' toggle button state management
     const toggleDetection = () => {
         setIsActive(!isActive);
         if (!isActive) {
@@ -107,6 +115,7 @@ export default function Home() {
         }
     };
 
+    // Graph like bar to indicate the percentage of specified emotion is detected
     const EmotionBar = ({ emotion, score }) => (
         <div className="mb-2">
             <div className="flex justify-between mb-1">
