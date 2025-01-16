@@ -34,7 +34,7 @@ Another _`localhost`_ server should be booted up (default port **`8000`**).
 Set up is complete! Head over to `http://localhost:<port number>` (Port number usually **`3000`**).
 
 ## Demonstration
-![Expression analysis coach demonstration](./media/demonstration.gif)
+![Expression analysis coach demonstration](./demo/demonstration.gif)
 
 ## Design Rationale
 Although appearance isn't everything, appearing approachable can significantly impact interactions and opportunities. I'm not talking about
