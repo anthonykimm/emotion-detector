@@ -3,10 +3,12 @@ import cv2
 import numpy as np
 import base64
 
+"""Processes and detects emotions given an input"""
 class EmotionDetector:
     def __init__(self):
         self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
+    """Utilising deepface library, determines the emotion of the give image"""
     def process_image(self, base64_image):
         try:
             img_data = base64.b64decode(base64_image.split(',')[1])

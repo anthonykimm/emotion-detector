@@ -62,6 +62,10 @@ const getFeedback = (emotions) => {
     };
 };
 
+/**
+ * Calculates emotion score with adjusted weighting for positive/negative emotions.
+ *
+ */
 const calculateApproachabilityScore = (emotions) => {
     if (!emotions) return 0;
 
